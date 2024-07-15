@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: false }));
 
 connectMongoDB('mongodb://localhost:27017/url-shortner')
   .then(() => { console.log('MongoDB connected!!!'); })
-  .catch((err) => console.log("Mongo Error - ", err));
+  .catch((err) => console.log("MongoDB Connection Error - ", err));
 
 
 

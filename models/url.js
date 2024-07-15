@@ -11,7 +11,7 @@ const urlSchema = new mongoose.Schema({
     required: true
   },
   visitHistory: [{
-    timestamp: { type: Date, default: Date.now },
+    hitTime: { type: Date, default: Date.now },
     ip: { type: String }
   }],
   isActive: {

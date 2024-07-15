@@ -8,17 +8,25 @@ async function generateNewShortURL(req, res) {
 
   let body = req.body;
   if (!body || !body.originalUrl) {
-    return res.status(400), json({ error: "URL is required!" });
+    return res.status(400).json({ error: "URL is required!" });
   }
 
   let shortId = shortid();
   console.log('nanoId created - ', shortId);
 
-  await URL.create({
-    shortId: shortId,
-    redirectUrl: body.originalUrl,
-    visitHistory: []
+  let urlObject = await URL.findOne({
+    redirectUrl: body.originalUrl
   });
+  if (urlObject) {
+    return res.status(400).json({ error: `URL already shorted; Short URL - ${urlObject.shortId}` });
+  } else {
+    await URL.create({
+      shortId: shortId,
+      redirectUrl: body.originalUrl,
+      visitHistory: []
+    });
+  }
+
 
   return res.json({ id: shortId });
 }
@@ -32,23 +40,35 @@ async function fetchAllURLData(req, res) {
 
 async function getLongUrl(req, res) {
   let params = req.params;
+  let longUrlData, visitHistory, lastVisit;
 
   if (!params) {
-    return res.status(400), json({ error: "No Parameters passed!" });
+    return res.status(400).json({ error: "No Parameters passed!" });
   }
   if (!params.shortId) {
-    return res.status(400), json({ error: "Short URL is required!" });
+    return res.status(400).json({ error: "Short URL is required!" });
   }
-  let shortUrl = params.shortId;
 
   let longUrlObject = await URL.findOne({
-    shortId: shortUrl
+    shortId: params.shortId
   });
-  let longUrlData = longUrlObject.redirectUrl;
 
-  longUrlObject.visitHistory;
+  if (!longUrlObject) {
+    return res.status(400).json({ error: "URL not registered Yet !!!" });
+  }
+  longUrlData = longUrlObject.redirectUrl;
 
-  return res.json({ longUrl: longUrlData });
+  visitHistory = longUrlObject.visitHistory;
+  lastVisit = visitHistory && visitHistory.length > 0 ? visitHistory[visitHistory.length - 1] : null;
+
+  const ipAddress = req.ip || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+
+  visitHistory.push({ ip: ipAddress, hitTime: new Date() });
+
+  longUrlObject.visitHistory = visitHistory;
+  let savedData = await longUrlObject.save();
+
+  return res.json({ longUrl: longUrlData, lastVisitDate: lastVisit });
 }
 
 module.exports = { generateNewShortURL, fetchAllURLData, getLongUrl }
