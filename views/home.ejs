@@ -1,51 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URL Shortener</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f7f7f8; /* Soft gray background */
+      color: #333; /* Dark gray text */
+      margin: 0;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      color: #2c3e50; /* Darker gray-blue for the header */
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      font-weight: 600;
+    }
+
+    form {
+      background-color: #ffffff; /* White background for the form */
+      padding: 25px;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 600px;
+      margin-bottom: 30px;
+    }
+
+    label {
+      font-size: 1rem;
+      color: #555; /* Medium gray for label text */
+      margin-bottom: 10px;
+      display: block;
+      font-weight: 500;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      border: 1px solid #ccc; /* Light gray border */
+      border-radius: 4px;
+      margin-bottom: 20px;
+      transition: border-color 0.3s;
+    }
+
+    input[type="text"]:focus {
+      border-color: #007BFF; /* Blue border on focus */
+      outline: none;
+    }
+
+    button {
+      background-color: #007BFF; /* Blue button */
+      color: #ffffff;
+      padding: 12px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3; /* Darker blue on hover */
+    }
+
+    table {
+      width: 100%;
+      max-width: 800px;
+      border-collapse: collapse;
+      margin-top: 30px;
+      background-color: #ffffff; /* White background for the table */
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    thead {
+      background-color: #2c3e50; /* Dark gray-blue for table header */
+      color: #ffffff;
+    }
+
+    th, td {
+      padding: 16px;
+      text-align: left;
+      border-bottom: 1px solid #e2e8f0; /* Light gray border */
+      font-size: 1rem;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f8f9fa; /* Light gray for alternating rows */
+    }
+
+    tr:hover {
+      background-color: #f1f3f5; /* Slightly darker gray on hover */
+    }
+
+    p {
+      background-color: #e2f3e9; /* Light green for success message */
+      color: #2d6a4f; /* Dark green text */
+      padding: 15px;
+      border-radius: 4px;
+      border: 1px solid #b7e4c7; /* Green border */
+      width: 100%;
+      max-width: 600px;
+      margin-top: 20px;
+      font-size: 1rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    a {
+      color: #007BFF; /* Blue links */
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    a:hover {
+      text-decoration: underline;
     }
   </style>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home Page</title>
 </head>
 
 <body>
   <h1>URL Shortener</h1>
-  <div>
-    <form method="post" action="/url"> 
-      <label> Enter the Long URL</label>
-      <input type="text" name="originalUrl" placeholder="https://test-url.com"/>
-      <button type="submit"> Generate </button>
-    </form>
-  </div>
+  
+  <form method="post" action="/url"> 
+    <label>Enter the Long URL</label>
+    <input type="text" name="originalUrl" placeholder="https://test-url.com" required/>
+    <button type="submit">Generate</button>
+  </form>
 
   <div>
-    <% if(locals.id) {%>
-      <p> Created Short URL is http://localhost:8000/url/<%= id %></p>
+    <% if(locals.id) { %>
+      <p>Created Short URL is <a href="http://localhost:8000/url/<%= id %>">http://localhost:8000/url/<%= id %></a></p>
     <% } %>
   </div>
 
   <div>
-    <% if(locals.allUrlStat) {%>
+    <% if(locals.allUrlStat) { %>
       <table>
         <thead>
-          <th>S. No.</th>
-          <th>ShortId</th>
-          <th>RedirectURL</th>
-          <th>Clicks</th>
-        </thead>
-
-        <tbody>
-          <% allUrlStat.forEach((element,index) => { %>
           <tr>
-            <td><%= index+1 %></td>
+            <th>S. No.</th>
+            <th>ShortId</th>
+            <th>Redirect URL</th>
+            <th>Clicks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% allUrlStat.forEach((element, index) => { %>
+          <tr>
+            <td><%= index + 1 %></td>
             <td><%= element.shortId %></td>
-            <td><%= element.redirectUrl %></td>
+            <td><a href="<%= element.redirectUrl %>" target="_blank"><%= element.redirectUrl %></a></td>
             <td><%= element.visitHistory.length %></td>
           </tr>
-          <%}); %>
+          <% }); %>
         </tbody>
       </table>
     <% } %>
