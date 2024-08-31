@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Page</title>
+</head>
+
+<body>
+  <h1>URL Shortener</h1>
+  <div>
+    <form method="post" action="/url"> 
+      <label> Enter the Long URL</label>
+      <input type="text" name="originalUrl" placeholder="https://test-url.com"/>
+      <button type="submit"> Generate </button>
+    </form>
+  </div>
+
+  <div>
+    <% if(locals.id) {%>
+      <p> Created Short URL is http://localhost:8000/url/<%= id %></p>
+    <% } %>
+  </div>
+
+  <div>
+    <% if(locals.allUrlStat) {%>
+      <table>
+        <thead>
+          <th>S. No.</th>
+          <th>ShortId</th>
+          <th>RedirectURL</th>
+          <th>Clicks</th>
+        </thead>
+
+        <tbody>
+          <% allUrlStat.forEach((element,index) => { %>
+          <tr>
+            <td><%= index+1 %></td>
+            <td><%= element.shortId %></td>
+            <td><%= element.redirectUrl %></td>
+            <td><%= element.visitHistory.length %></td>
+          </tr>
+          <%}); %>
+        </tbody>
+      </table>
+    <% } %>
+  </div>
+  
+</body>
+</html>

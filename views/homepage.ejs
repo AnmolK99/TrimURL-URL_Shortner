@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1> hey from server !!!</h1>
+  <h3> Urls Registered till now !!!</h3>
+
+  <% urlData.forEach(element=>{ %>
+        <li> <%= element.shortId %> </li>
+  <% }) %>
+
+</body>
+</html>

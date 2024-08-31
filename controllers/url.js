@@ -27,15 +27,19 @@ async function generateNewShortURL(req, res) {
     });
   }
 
-
-  return res.json({ id: shortId });
+  return res.render('home', {
+    id: shortId
+  });
+  // return res.json({ id: shortId });
 }
 
 async function fetchAllURLData(req, res) {
 
   let response = await URL.find();
 
-  return res.json({ returnData: response });
+  return res.render("homepage",
+    { urlData: response });
+  // return res.json({ returnData: response });
 }
 
 async function getLongUrl(req, res) {
@@ -68,7 +72,8 @@ async function getLongUrl(req, res) {
   longUrlObject.visitHistory = visitHistory;
   let savedData = await longUrlObject.save();
 
-  return res.json({ longUrl: longUrlData, lastVisitDate: lastVisit });
+  return res.redirect(longUrlData);
+  // return res.json({ longUrl: longUrlData, lastVisitDate: lastVisit });
 }
 
 module.exports = { generateNewShortURL, fetchAllURLData, getLongUrl }
