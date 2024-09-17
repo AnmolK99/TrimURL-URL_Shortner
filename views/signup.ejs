@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f3f4f6; /* Soft off-white/gray background */
+    color: #333; /* Dark gray text */
+    margin: 0;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h1, h3 {
+    color: #2c5282; /* Soft blue for headers */
+    margin-bottom: 20px;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    border-bottom: 3px solid #63b3ed; /* Blue underline */
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+  }
+
+  h3 {
+    font-size: 1.75rem;
+    margin-bottom: 30px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    max-width: 600px;
+    width: 100%;
+    background-color: #ffffff; /* White background for the list */
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(45, 112, 190, 0.2); /* Soft blue shadow */
+    border: 2px solid #63b3ed; /* Light blue border */
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
+
+  li {
+    padding: 15px;
+    border-bottom: 1px solid #e2e8f0; /* Light gray border */
+    font-size: 1rem;
+    text-align: center;
+    background-color: #f7fafc; /* Very light blue-gray */
+    color: #2d3748; /* Darker gray-blue text */
+  }
+
+  li:last-child {
+    border-bottom: none; /* Remove border for last item */
+  }
+
+  li:nth-child(even) {
+    background-color: #edf2f7; /* Slightly darker light blue-gray for alternating rows */
+  }
+</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signup</title>
+</head>
+<body>
+  <h1>Signup</h1>
+  <form action="/user/signup" method="post">
+    <label>Full Name</label>
+    <input type="text" required name="name"/>
+    <label>Email Id</label>
+    <input type="text" required name="email"/>
+    <label>Password</label>
+    <input type="text" required name="password"/>
+
+    <button type="submit">Signup</button>
+  </form>
+</body>
+</html>

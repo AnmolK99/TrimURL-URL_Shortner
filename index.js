@@ -6,6 +6,7 @@ const PORT = 8000;
 // Fetching the routes and functions
 const urlRoute = require('./routes/url.js');
 const homeRoute = require('./routes/home-page-router.js');
+const userRoute = require('./routes/user.js');
 const { connectMongoDB } = require('./connection');
 
 // Setting middlewares and View engines
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: false }));
 // Defining routes
 app.use('/url', urlRoute);
 app.use('/', homeRoute);
+app.use('/user', userRoute);
 
 // Establish DB Connection
 connectMongoDB('mongodb://localhost:27017/url-shortner')
