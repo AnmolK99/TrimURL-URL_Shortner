@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const cookieParser = require('cookie-parser');
 const PORT = 8000;
 
 // Fetching the routes and functions
@@ -8,15 +9,17 @@ const urlRoute = require('./routes/url.js');
 const homeRoute = require('./routes/home-page-router.js');
 const userRoute = require('./routes/user.js');
 const { connectMongoDB } = require('./connection');
+const { requestToLoggedInUserOnly } = require('./middlewares/auth.js');
 
 // Setting middlewares and View engines
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 // Defining routes
-app.use('/url', urlRoute);
+app.use('/url', requestToLoggedInUserOnly, urlRoute); // using inline middlewares
 app.use('/', homeRoute);
 app.use('/user', userRoute);
 

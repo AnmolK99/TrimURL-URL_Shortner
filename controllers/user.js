@@ -1,5 +1,6 @@
-
+const { v4: uuidv4 } = require('uuid');
 const User = require('../models/user');
+const { getUser, setUser } = require('../service/auth');
 
 async function registerUser(req, res) {
 
@@ -59,9 +60,18 @@ async function loginUser(req, res) {
   }
 
   console.log(`User ${userData.name} logged in correctly`);
-  return res.render("login",
-    { loginAttempted: true, loginSuccess: true, loginMessage: loginResponseMessage }
-  );
+
+  const userToken = uuidv4();
+  console.log(`User ${userData.name} got token - ${userToken}`);
+
+  setUser(userToken, userData.id);
+
+  res.cookie("uid", userToken);
+
+  // return res.render("login",
+  //   { loginAttempted: true, loginSuccess: true, loginMessage: loginResponseMessage }
+  // );
+  return res.redirect("/");
 }
 
 module.exports = { registerUser, loginUser };
