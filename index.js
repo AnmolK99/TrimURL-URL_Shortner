@@ -24,7 +24,10 @@ app.use('/', homeRoute);
 app.use('/user', userRoute);
 
 // Establish DB Connection
-connectMongoDB('mongodb://localhost:27017/url-shortner')
+connectMongoDB('mongodb://localhost:27017/url-shortner', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
   .then(() => { console.log('MongoDB connected!!!'); })
   .catch((err) => console.log("MongoDB Connection Error - ", err));
 

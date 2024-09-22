@@ -23,7 +23,8 @@ async function generateNewShortURL(req, res) {
     await URL.create({
       shortId: shortId,
       redirectUrl: body.originalUrl,
-      visitHistory: []
+      visitHistory: [],
+      createdBy: req.user
     });
   }
 
@@ -34,6 +35,10 @@ async function generateNewShortURL(req, res) {
 }
 
 async function fetchAllURLData(req, res) {
+
+  let userData = req.user;
+
+  console.log('User data - ', userData);
 
   let response = await URL.find();
 
