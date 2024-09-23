@@ -6,3 +6,7 @@ Key Stack -
 - Node.js
 - Express
 - MongoDB
+
+----- To start mongoDB server
+Open terminal (For Windows)
+> mongod

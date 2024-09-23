@@ -11,7 +11,19 @@ async function requestToLoggedInUserOnly(req, res, next) {
   if (!user) return res.redirect("/login");
 
   req.user = user;
+
   next();
 }
 
-module.exports = { requestToLoggedInUserOnly };
+async function checkAuth(req, res, next) {
+
+  let authToken = req.cookies?.uid;
+
+  let user = getUser(authToken);
+
+  req.user = user;
+
+  next();
+}
+
+module.exports = { requestToLoggedInUserOnly, checkAuth };

@@ -38,9 +38,9 @@ async function fetchAllURLData(req, res) {
 
   let userData = req.user;
 
-  console.log('User data - ', userData);
+  console.log('Token id to fetch all URLs - ', userData._id);
 
-  let response = await URL.find();
+  let response = await URL.find({ createdBy: userData._id });
 
   return res.render("homepage",
     { urlData: response });
@@ -57,7 +57,7 @@ async function getLongUrl(req, res) {
   if (!params.shortId) {
     return res.status(400).json({ error: "Short URL is required!" });
   }
-
+  console.log('Short url tried - ', params.shortId);
   let longUrlObject = await URL.findOne({
     shortId: params.shortId
   });

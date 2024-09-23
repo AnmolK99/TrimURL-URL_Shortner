@@ -59,12 +59,12 @@ async function loginUser(req, res) {
     );
   }
 
-  console.log(`User ${userData.name} logged in correctly`);
+  // console.log(`User ${userData.name} logged in correctly`);
 
   const userToken = uuidv4();
   console.log(`User ${userData.name} got token - ${userToken}`);
 
-  setUser(userToken, userData.id);
+  setUser(userToken, userData);
 
   res.cookie("uid", userToken);
 

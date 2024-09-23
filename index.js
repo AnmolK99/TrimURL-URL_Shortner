@@ -9,7 +9,7 @@ const urlRoute = require('./routes/url.js');
 const homeRoute = require('./routes/home-page-router.js');
 const userRoute = require('./routes/user.js');
 const { connectMongoDB } = require('./connection');
-const { requestToLoggedInUserOnly } = require('./middlewares/auth.js');
+const { requestToLoggedInUserOnly, checkAuth } = require('./middlewares/auth.js');
 
 // Setting middlewares and View engines
 app.set("view engine", "ejs");
@@ -20,7 +20,7 @@ app.use(cookieParser());
 
 // Defining routes
 app.use('/url', requestToLoggedInUserOnly, urlRoute); // using inline middlewares
-app.use('/', homeRoute);
+app.use('/', checkAuth, homeRoute);
 app.use('/user', userRoute);
 
 // Establish DB Connection
