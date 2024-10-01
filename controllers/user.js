@@ -18,13 +18,18 @@ async function registerUser(req, res) {
   if (!body.password) {
     return res.status(400).json({ error: "User Password is required!" });
   }
+  let foundUserData = await User.findOne({ email: body.email });
+
+  if (foundUserData) {
+    return res.status(400).json({ error: "User already present in system!" });
+  }
 
   let userData = await User.create({
     name: body.name,
     email: body.email,
     password: body.password
   });
-  console.log("userData - ", userData);
+  // console.log("userData - ", userData);
 
   return res.redirect("/");
 }
