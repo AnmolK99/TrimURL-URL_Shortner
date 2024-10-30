@@ -7,6 +7,8 @@ router.get('/', async (req, res) => {
 
   if (!req.user) return res.redirect("/login");
 
+  if (!req.user._id) return res.json({ ERR: "Invalid User login !!!" });
+
   let allURLs = await URL.find({ createdBy: req.user._id });
 
   return res.render("home", {

@@ -66,12 +66,12 @@ async function loginUser(req, res) {
 
   // console.log(`User ${userData.name} logged in correctly`);
 
-  const userToken = uuidv4();
-  console.log(`User ${userData.name} got token - ${userToken}`);
+  // const userToken = uuidv4();
+  // console.log(`User ${userData.name} got token - ${userToken}`);
 
-  setUser(userToken, userData);
+  let token = setUser({ name: userData.name, email: userData.email, _id: userData._id });
 
-  res.cookie("uid", userToken);
+  res.cookie("uid", token);
 
   // return res.render("login",
   //   { loginAttempted: true, loginSuccess: true, loginMessage: loginResponseMessage }
