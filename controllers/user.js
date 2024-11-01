@@ -69,7 +69,7 @@ async function loginUser(req, res) {
   // const userToken = uuidv4();
   // console.log(`User ${userData.name} got token - ${userToken}`);
 
-  let token = setUser({ name: userData.name, email: userData.email, _id: userData._id });
+  let token = setUser({ name: userData.name, _id: userData._id });
 
   res.cookie("uid", token);
 

@@ -3,10 +3,10 @@
 const JWT = require('jsonwebtoken');
 const secret = 'Anmol@123$%^';
 
-function setUser(user) {
+function setUser(userData) {
   // currentActiveSessions.set(tokenId, userId);
-
-  return JWT.sign(user, secret);
+  userData['sessionCreatedTime'] = new Date();
+  return JWT.sign(userData, secret);
 }
 function getUser(tokenId) {
   // return currentActiveSessions.get(tokenId);

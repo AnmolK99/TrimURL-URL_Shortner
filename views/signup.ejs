@@ -4,7 +4,7 @@
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f3f4f6; /* Soft off-white/gray background */
+      background-color: #e2e8f0; /* Soft off-white/gray background */
       color: #333; /* Dark gray text */
       margin: 0;
       padding: 40px; 
@@ -63,6 +63,16 @@
     button:hover {
       background-color: #4299e1;
     }
+
+    .login-btn {
+      background-color: #48bb78;
+      color: white;
+      border: none;
+    }
+
+    .login-btn:hover {
+      background-color: #38a169;
+    }
   </style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -79,6 +89,8 @@
     <input type="password" required name="password"/>
 
     <button type="submit">Signup</button>
+    <button type="button" class="login-btn" onclick="window.location.href='/user/login'">Login (Already have Account)</button>
+
   </form>
 </body>
 </html>

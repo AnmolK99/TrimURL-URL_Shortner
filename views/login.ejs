@@ -2,74 +2,119 @@
 <html lang="en">
 <head>
   <style>
+    /* Base Styles */
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f3f4f6; /* Soft off-white/gray background */
-      color: #333; /* Dark gray text */
+      background-color:#e2e8f0;
+      color: #333;
       margin: 0;
-      padding: 40px; 
+      padding: 40px;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    h1, h3 {
-      color: #2c5282; /* Soft blue for headers */
-      margin-bottom: 20px;
-      font-weight: 600;
-      text-align: center;
-    }
-
+    /* Header Styles */
     h1 {
+      color: #2c5282;
       font-size: 2.5rem;
-      border-bottom: 3px solid #63b3ed; /* Blue underline */
+      border-bottom: 3px solid #63b3ed;
       padding-bottom: 10px;
       margin-bottom: 30px;
+      text-align: center;
+      font-weight: 700;
     }
 
+    /* Form Styles */
     form {
       width: 100%;
       max-width: 400px;
       background-color: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(45, 112, 190, 0.2); /* Soft blue shadow */
-      border: 2px solid #63b3ed; /* Light blue border */
+      padding: 30px 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(45, 112, 190, 0.15);
+      border: 2px solid #63b3ed;
       display: flex;
       flex-direction: column;
+      gap: 15px;
     }
 
-    label, input {
-      padding: 10px;
+    label {
       font-size: 1rem;
-      /* border: 1px solid #cbd5e0;  */
-      border-radius: 4px;
-      width: 100%;
-      box-sizing: border-box; 
-      margin-right: 10px; /* Adds some space to the right of the input */
+      font-weight: 600;
+      color: #2c5282;
     }
 
+    input[type="text"],
+    input[type="password"] {
+      padding: 12px;
+      font-size: 1rem;
+      border: 1px solid #cbd5e0;
+      border-radius: 5px;
+      width: 100%;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      border-color: #63b3ed;
+      outline: none;
+    }
+
+    /* Button Styles */
     button {
+      padding: 12px;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+
+    button[type="submit"] {
       background-color: #63b3ed;
       color: white;
       border: none;
-      padding: 10px;
-      border-radius: 5px;
-      font-size: 1rem;
-      cursor: pointer;
-      margin-bottom: 10px;
+      margin-top: 10px;
     }
 
-    button:hover {
+    button[type="submit"]:hover {
       background-color: #4299e1;
     }
 
     .signup-btn {
-      background-color: #48bb78; /* Green color for the signup button */
+      background-color: #48bb78;
+      color: white;
+      border: none;
     }
 
     .signup-btn:hover {
       background-color: #38a169;
+    }
+
+    /* Message Styles */
+    .message-box {
+      max-width: 400px;
+      width: 100%;
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+
+    .success {
+      background-color: #e6fffa;
+      border: 2px solid #38b2ac;
+      color: #2c7a7b;
+    }
+
+    .error {
+      background-color: #fef2f2;
+      border: 2px solid #e53e3e;
+      color: #e53e3e;
     }
   </style>
   <meta charset="UTF-8">
@@ -79,29 +124,26 @@
 <body>
   <h1>Login</h1>
   <form action="/user/login" method="post">
-    <label>Email</label>
-    <input type="text" required name="email"/>
-    <label>Password</label>
-    <input type="password" required name="password"/>
+    <label for="email">Email</label>
+    <input type="text" id="email" name="email" required placeholder="Enter your email">
+    
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" required placeholder="Enter your password">
 
     <button type="submit">Login</button>
-    
-    <!-- Signup button -->
-    <button type="button" class="signup-btn" onclick="window.location.href='/signup'">Sign Up</button>
+    <button type="button" class="signup-btn" onclick="window.location.href='/user/signup'">Sign Up</button>
 
+    <!-- Success and Error Messages -->
     <% if (typeof loginAttempted !== 'undefined' && loginAttempted && loginSuccess) { %>
-      <div style="max-width: 600px; width: 100%; margin: 20px auto; padding: 15px; background-color: #e6fffa; border: 2px solid #38b2ac; border-radius: 8px; color: #2c7a7b; text-align: center;">
-        <h2 style="margin: 0; font-size: 1.5rem; font-weight: 600;">Login Successful!</h2> 
-        <p style="font-size: 1rem; margin-top: 10px;">
+      <div class="message-box success">
+        <h2 style="margin: 0; font-size: 1.5rem; font-weight: 600;">Login Successful!</h2>
+        <p style="margin-top: 10px;">
           Welcome back! You have successfully logged in. You can now access your dashboard and manage your account.
         </p>
       </div>
     <% } else if (typeof loginAttempted !== 'undefined' && loginAttempted && !loginSuccess) { %>
-      <div style="max-width: 600px; width: 100%; margin: 20px auto; padding: 15px; background-color: #f5f5f5; border: 2px solid hsl(0, 100%, 36%); border-radius: 8px; color: hsl(0, 100%, 36%); text-align: center;">
-        <h2 style="margin: 0; font-size: 1.5rem; font-weight: 600;">Login Failed!</h2>
-        <p style="font-size: 1rem; margin-top: 10px;">
-          <%= loginMessage %>
-        </p>
+      <div class="message-box error">
+        <p><%= loginMessage %></p>
       </div>
     <% } %>
   </form>

@@ -9,7 +9,7 @@ const urlRoute = require('./routes/url.js');
 const homeRoute = require('./routes/home-page-router.js');
 const userRoute = require('./routes/user.js');
 const { connectMongoDB } = require('./connection');
-const { requestToLoggedInUserOnly, checkAuth } = require('./middlewares/auth.js');
+const { requestToLoggedInUserOnly, checkAuthForHome, checkAuthForUser } = require('./middlewares/auth.js');
 
 // Setting middlewares and View engines
 app.set("view engine", "ejs");
@@ -18,10 +18,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// Defining routes
-app.use('/url', requestToLoggedInUserOnly, urlRoute); // using inline middlewares
-app.use('/', checkAuth, homeRoute);
+// Defining routes // Using inline middlewares
+app.use('/url', requestToLoggedInUserOnly, urlRoute);
 app.use('/user', userRoute);
+app.use('/', checkAuthForHome, homeRoute); // Implement the / route at last
 
 // Establish DB Connection
 connectMongoDB('mongodb://localhost:27017/url-shortner', {
