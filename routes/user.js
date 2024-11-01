@@ -8,10 +8,16 @@ const { registerUser, loginUser } = require('./../controllers/user');
 
 // Defining different routes
 router
+  .get('/signup', async (req, res) => {
+    return res.render("signup");
+  })
   .post('/signup', registerUser);
 
 router
+  .get('/login', async (req, res) => {
+    return res.render("login",
+      { loginAttempted: true, loginSuccess: false, loginMessage: 'Session Timed-out, Kindly login again !!!' });
+  })
   .post('/login', loginUser);
-
 
 module.exports = router;
