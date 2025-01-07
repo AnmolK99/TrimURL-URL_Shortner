@@ -1,6 +1,9 @@
 const { v4: uuidv4 } = require('uuid');
+const _ = require('underscore');
 const User = require('../models/user');
-const { getUser, setUser } = require('../service/auth');
+const Role = require('../models/role');
+const UserRoleMapping = require('../models/user-role-mapping');
+const { getUser, setUser } = require('../service/auth-token');
 
 async function registerUser(req, res) {
 
@@ -38,7 +41,6 @@ async function loginUser(req, res) {
   let body = req.body;
   let loginResponseMessage = null;
 
-  // console.log('Data recieved on Signup - ', body);
   if (!body) {
     return res.status(400).json({ error: "Data not recieved!" });
   }
@@ -64,14 +66,28 @@ async function loginUser(req, res) {
     );
   }
 
-  // console.log(`User ${userData.name} logged in correctly`);
+  console.log(`User ${userData.name} logged in correctly`);
 
   // const userToken = uuidv4();
   // console.log(`User ${userData.name} got token - ${userToken}`);
 
-  let token = setUser({ name: userData.name, _id: userData._id });
+  let userRoleMappings = await UserRoleMapping.find({ userId: userData.id });
+
+  if (!userRoleMappings || userRoleMappings.length == 0) {
+    loginResponseMessage = "No Role mapped to the User, Kindly Map the role and login!";
+    return res.render("login",
+      { loginAttempted: true, loginSuccess: false, loginMessage: loginResponseMessage }
+    );
+  }
+
+  let mappedRoles = await Role.find({ _id: { $in: _.pluck(userRoleMappings, "roleId") } });
+  let rolesObject = _.map(mappedRoles, function (roleData) { return { id: roleData.id, name: roleData.name } });
+
+  // console.log({ name: userData.name, _id: userData._id, roles: rolesObject });
+  let token = setUser({ name: userData.name, _id: userData._id, roles: rolesObject });
 
   res.cookie("uid", token);
+  // return res.json({ token: token });
 
   // return res.render("login",
   //   { loginAttempted: true, loginSuccess: true, loginMessage: loginResponseMessage }

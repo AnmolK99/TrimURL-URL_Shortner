@@ -1,7 +1,7 @@
 // const currentActiveSessions = new Map();
 
 const JWT = require('jsonwebtoken');
-const secret = 'Anmol@123$%^';
+const secret = 'TrimUrl@123$%^';
 
 function setUser(userData) {
   // currentActiveSessions.set(tokenId, userId);
