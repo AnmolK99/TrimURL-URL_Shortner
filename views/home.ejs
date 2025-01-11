@@ -74,6 +74,17 @@
       background-color: #0056b3; /* Darker blue on hover */
     }
 
+    .logout-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: #dc3545; /* Red button for logout */
+    }
+
+    .logout-btn:hover {
+      background-color: #c82333; /* Darker red on hover */
+    }
+
     table {
       width: 100%;
       max-width: 800px;
@@ -131,6 +142,7 @@
 </head>
 
 <body>
+  <button class="logout-btn" onclick="window.location.href='/user/logout'">Logout</button>
   <h1>URL Shortener</h1>
   
   <form method="post" action="/url"> 

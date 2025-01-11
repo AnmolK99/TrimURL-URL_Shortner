@@ -34,7 +34,27 @@ async function registerUser(req, res) {
   });
   // console.log("userData - ", userData);
 
+  // Find the USER role
+  const userRole = await Role.findOne({ name: 'USER' });
+  if (!userRole) {
+    return res.status(500).json({ error: "USER role not found in system" });
+  }
+
+  // Create role mapping for new user
+  await UserRoleMapping.create({
+    userId: userData._id,
+    roleId: userRole._id
+  });
+
   return res.redirect("/");
+}
+
+async function logoutUser(req, res) {
+  // Clear the uid cookie
+  res.clearCookie('uid');
+
+  // Redirect to login page
+  return res.redirect('/user/login');
 }
 
 async function loginUser(req, res) {
@@ -95,4 +115,4 @@ async function loginUser(req, res) {
   return res.redirect("/");
 }
 
-module.exports = { registerUser, loginUser };
+module.exports = { registerUser, loginUser, logoutUser };
