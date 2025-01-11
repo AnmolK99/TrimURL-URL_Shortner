@@ -23,9 +23,9 @@ function restrictToRoles(roles) {
     if (!authHeaderValue) return res.redirect("/user/login");
     const userData = getUser(authHeaderValue);
     if (!userData) return res.redirect("/user/login");
-    console.log('userData - ', userData);
-    console.log('userData.sessionCreatedTime - ', userData.sessionCreatedTime);
-    console.log('all session valid created after - ', new Date(new Date() - sessionExpiry));
+    // console.log('userData - ', userData);
+    // console.log('userData.sessionCreatedTime - ', userData.sessionCreatedTime);
+    // console.log('all session valid created after - ', new Date(new Date() - sessionExpiry));
 
     if (userData && userData.sessionCreatedTime && new Date(userData.sessionCreatedTime) < new Date(new Date() - sessionExpiry)) {
       console.log('Session Timed-out for - ', userData.name);
@@ -33,8 +33,6 @@ function restrictToRoles(roles) {
     }
 
     const userRoles = userData.roles && userData.roles.length > 0 ? _.pluck(userData.roles, "name") : [];
-    console.log('roles required - ', roles);
-    console.log('roles mapped to user - ', userRoles);
 
     if (_.intersection(userRoles, roles).length == 0) {
       console.log('User does not have given role priviledge - ', roles);
