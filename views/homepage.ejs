@@ -3,78 +3,193 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registered URLs</title>
+  <title>URL Analytics</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f3f4f6; /* Soft off-white/gray background */
-      color: #333; /* Dark gray text */
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: #ffffff;
+      color: #202123;
       margin: 0;
       padding: 40px;
       display: flex;
       flex-direction: column;
       align-items: center;
-    }
-
-    h1, h3 {
-      color: #2c5282; /* Soft blue for headers */
-      margin-bottom: 20px;
-      font-weight: 600;
-      text-align: center;
+      min-height: 100vh;
     }
 
     h1 {
-      font-size: 2.5rem;
-      border-bottom: 3px solid #63b3ed; /* Blue underline */
-      padding-bottom: 10px;
-      margin-bottom: 30px;
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      color: #2563eb;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      color: #1d4ed8;
     }
 
     h3 {
-      font-size: 1.75rem;
-      margin-bottom: 30px;
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+      color: #1e40af;
     }
 
-    ul {
-      list-style-type: none;
-      padding: 0;
-      max-width: 600px;
+    .container {
       width: 100%;
-      background-color: #ffffff; /* White background for the list */
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #ffffff;
       border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(45, 112, 190, 0.2); /* Soft blue shadow */
-      border: 2px solid #63b3ed; /* Light blue border */
       overflow: hidden;
-      margin-bottom: 40px;
-      margin-right: 10px; /* Adds some space to the right of the input */
+      margin-top: 2rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      border: 1px solid #e5e5e5;
     }
 
-    li {
-      padding: 15px;
-      border-bottom: 1px solid #e2e8f0; /* Light gray border */
-      font-size: 1rem;
+    thead {
+      background-color: #2563eb;
+    }
+
+    th {
+      padding: 1rem;
+      text-align: left;
+      font-weight: 500;
+      color: #ffffff;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    td {
+      padding: 1rem;
+      color: #202123;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background-color: #f8f9fa;
+    }
+
+    .empty-state {
       text-align: center;
-      background-color: #f7fafc; /* Very light blue-gray */
-      color: #2d3748; /* Darker gray-blue text */
+      padding: 2rem;
+      color: #6e6e80;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      border: 1px solid #e5e5e5;
     }
 
-    li:last-child {
-      border-bottom: none; /* Remove border for last item */
+    .app-title {
+      color: #000000;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      font-weight: 600;
+      background: linear-gradient(45deg, #000000, #000000, #000000, #000000);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: gradient 5s ease infinite;
+      transition: all 0.3s ease;
     }
 
-    li:nth-child(even) {
-      background-color: #edf2f7; /* Slightly darker light blue-gray for alternating rows */
+    .app-title:hover {
+      background-size: 400% 400%;
+      filter: brightness(1.2);
+      transform: scale(1.05);
+      color: #4169e1; /* Royal Blue */
+    }
+
+    @keyframes gradient {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .login-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 0.75rem 1.5rem;
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .login-btn:hover {
+      background-color: #1d4ed8;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 20px;
+      }
+
+      table {
+        font-size: 0.9rem;
+      }
+
+      th, td {
+        padding: 0.75rem;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Hey from Shortener!!!</h1>
-  <h3>URLs Registered Till Now:</h3>
+  <button class="login-btn" onclick="window.location.href='/user/login'">Login</button>
+  <h2 class="app-title">TrimURL</h2>
+  <div class="container">
+    <h1>URL Analytics Dashboard</h1>
 
-  <ul>
-    <% urlData.forEach(element => { %>
-      <li><%= element.shortId %></li>
-    <% }) %>
-  </ul>
+    <% if(urlData && urlData.length > 0) { %>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Short URL</th>
+            <th>Clicks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% urlData.forEach((element, index) => { %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= element.shortId %></td>
+            <td><%= element.visitHistory.length %></td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    <% } else { %>
+      <div class="empty-state">
+        <p>No URLs have been shortened yet. Create your first short URL to get started!</p>
+      </div>
+    <% } %>
+  </div>
 </body>
 </html>

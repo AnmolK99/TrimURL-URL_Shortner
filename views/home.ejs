@@ -3,8 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>URL Shortener</title>
+  <title>TrimURL</title>
   <style>
+
+    .app-title {
+      color: #000000;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      font-weight: 600;
+      background: linear-gradient(45deg, #000000, #000000, #000000, #000000);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: gradient 5s ease infinite;
+      transition: all 0.3s ease;
+    }
+
+    .app-title:hover {
+      background-size: 400% 400%;
+      filter: brightness(1.2);
+      transform: scale(1.05);
+      color: #4169e1; /* Royal Blue */
+    }
+
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #f7f7f8; /* Soft gray background */
@@ -143,7 +166,7 @@
 
 <body>
   <button class="logout-btn" onclick="window.location.href='/user/logout'">Logout</button>
-  <h1>URL Shortener</h1>
+  <h2 class="app-title">TrimURL</h2>
   
   <form method="post" action="/url"> 
     <label>Enter the Long URL</label>
