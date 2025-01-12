@@ -1,0 +1,9 @@
+{
+  "transactional": {
+    "url": "mongodb://localhost:27017/url-shortner",
+    "config": {
+      "useNewUrlParser": true,
+      "useUnifiedTopology": true
+    }
+  }
+}

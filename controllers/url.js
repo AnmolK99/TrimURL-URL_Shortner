@@ -3,6 +3,7 @@
 
 const shortid = require('shortid');
 const URL = require('./../models/url');
+const mongoose = require('mongoose');
 
 async function generateNewShortURL(req, res) {
 
@@ -40,7 +41,7 @@ async function fetchAllURLData(req, res) {
 
   console.log('Token id to fetch all URLs - ', userData._id);
 
-  let response = await URL.find({ createdBy: userData._id });
+  let response = await URL.find({ createdBy: new mongoose.Types.ObjectId(userData._id) });
 
   return res.render("homepage",
     { urlData: response });

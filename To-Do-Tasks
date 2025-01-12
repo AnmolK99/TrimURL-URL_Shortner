@@ -1,0 +1,2 @@
+# Load all the models and controllers and server.js in the app object so that 
+we don't need to fetch each dependency in every file

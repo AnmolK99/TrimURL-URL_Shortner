@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 // Fetching Functions to route to
-const { registerUser, loginUser } = require('./../controllers/user');
+const { registerUser, loginUser, logoutUser } = require('./../controllers/user');
 
 // Defining different routes
 router
@@ -19,5 +19,8 @@ router
       { loginAttempted: true, loginSuccess: false, loginMessage: 'Session Timed-out, Kindly login again !!!' });
   })
   .post('/login', loginUser);
+
+router
+  .get('/logout', logoutUser);
 
 module.exports = router;

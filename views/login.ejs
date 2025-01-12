@@ -2,150 +2,227 @@
 <html lang="en">
 <head>
   <style>
-    /* Base Styles */
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color:#e2e8f0;
-      color: #333;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #ffffff;
       margin: 0;
-      padding: 40px;
+      padding: 2rem;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
+      color: #202123;
     }
 
-    /* Header Styles */
-    h1 {
-      color: #2c5282;
-      font-size: 2.5rem;
-      border-bottom: 3px solid #63b3ed;
-      padding-bottom: 10px;
-      margin-bottom: 30px;
-      text-align: center;
-      font-weight: 700;
-    }
-
-    /* Form Styles */
-    form {
+    .container {
       width: 100%;
       max-width: 400px;
-      background-color: white;
-      padding: 30px 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(45, 112, 190, 0.15);
-      border: 2px solid #63b3ed;
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e5e5e5;
+    }
+
+.app-title {
+  color: #000000;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-weight: 600;
+  background: linear-gradient(45deg, #000000, #000000, #000000, #000000);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient 5s ease infinite;
+  transition: all 0.3s ease;
+}
+
+.app-title:hover {
+  background-size: 400% 400%;
+  filter: brightness(1.2);
+  transform: scale(1.05);
+  color: #4169e1; /* Royal Blue */
+}
+
+    h1 {
+      color: #202123;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    form {
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 1rem;
     }
 
     label {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #2c5282;
+      font-weight: 500;
+      color: #202123;
+      font-size: 0.9rem;
     }
 
-    input[type="text"],
-    input[type="password"] {
-      padding: 12px;
-      font-size: 1rem;
-      border: 1px solid #cbd5e0;
-      border-radius: 5px;
+    input {
       width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #e5e5e5;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      background-color: #ffffff;
+      color: #202123;
       box-sizing: border-box;
-      transition: border-color 0.3s ease;
+      transition: all 0.2s ease;
     }
 
-    input[type="text"]:focus,
-    input[type="password"]:focus {
-      border-color: #63b3ed;
+    input:focus {
       outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
     }
 
-    /* Button Styles */
+    input::placeholder {
+      color: #6e6e80;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
     button {
-      padding: 12px;
-      font-size: 1rem;
-      border-radius: 5px;
+      flex: 1;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-weight: 500;
       cursor: pointer;
-      font-weight: 600;
-      transition: background-color 0.3s;
+      transition: all 0.2s ease;
     }
 
     button[type="submit"] {
-      background-color: #63b3ed;
+      background-color: #2563eb;
       color: white;
-      border: none;
-      margin-top: 10px;
     }
 
     button[type="submit"]:hover {
-      background-color: #4299e1;
+      background-color: #1d4ed8;
     }
 
     .signup-btn {
-      background-color: #48bb78;
-      color: white;
-      border: none;
+      background-color: #ffffff;
+      color: #2563eb;
+      border: 1px solid #2563eb;
     }
 
     .signup-btn:hover {
-      background-color: #38a169;
+      background-color: rgba(37, 99, 235, 0.1);
     }
 
-    /* Message Styles */
     .message-box {
-      max-width: 400px;
-      width: 100%;
-      margin-top: 20px;
-      padding: 20px;
-      border-radius: 8px;
-      text-align: center;
-      font-size: 1rem;
-      box-sizing: border-box;
+      margin-top: 1rem;
+      padding: 0.75rem;
+      border-radius: 4px;
+      font-size: 0.9rem;
     }
 
     .success {
-      background-color: #e6fffa;
-      border: 2px solid #38b2ac;
-      color: #2c7a7b;
+      background-color: rgba(37, 99, 235, 0.1);
+      color: #2563eb;
+      border: 1px solid #2563eb;
     }
 
     .error {
-      background-color: #fef2f2;
-      border: 2px solid #e53e3e;
-      color: #e53e3e;
+      background-color: rgba(255, 76, 76, 0.1);
+      color: #FF4C4C;
+      border: 1px solid #FF4C4C;
+    }
+    
+
+    .form-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #2563eb;
+      border-radius: 4px;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    .floating-label {
+      position: absolute;
+      pointer-events: none;
+      left: 12px;
+      top: 12px;
+      transition: 0.2s ease all;
+      color: #718096;
+      font-size: 16px;
+      background: white;
+      padding: 0 4px;
+    }
+
+    .form-control:focus ~ .floating-label,
+    .form-control:not(:placeholder-shown) ~ .floating-label {
+      top: -9px;
+      font-size: 14px;
+      color: #2563eb;
     }
   </style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
+  <title>Login - TrimURL</title>
 </head>
 <body>
-  <h1>Login</h1>
-  <form action="/user/login" method="post">
-    <label for="email">Email</label>
-    <input type="text" id="email" name="email" required placeholder="Enter your email">
+  <h2 class="app-title">TrimURL</h2>
+  <div class="container">
+    <h1>Welcome Back</h1>
+    <form action="/user/login" method="post">
+      <!-- <label for="email">Email address</label> -->
+      <div class="form-group">
+        <input type="text" 
+               class="form-control" 
+               placeholder=" " 
+               required>
+        <label class="floating-label">Email address*</label>
+      </div>
+      <!-- <label for="password">Password</label> -->
+      <div class="form-group">
+        <input type="password" 
+               id="password" 
+               name="password" 
+               class="form-control" 
+               placeholder=" " 
+               required>
+        <label class="floating-label">Password*</label>
+      </div>
     
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password" required placeholder="Enter your password">
-
-    <button type="submit">Login</button>
-    <button type="button" class="signup-btn" onclick="window.location.href='/user/signup'">Sign Up</button>
-
-    <!-- Success and Error Messages -->
-    <% if (typeof loginAttempted !== 'undefined' && loginAttempted && loginSuccess) { %>
-      <div class="message-box success">
-        <h2 style="margin: 0; font-size: 1.5rem; font-weight: 600;">Login Successful!</h2>
-        <p style="margin-top: 10px;">
-          Welcome back! You have successfully logged in. You can now access your dashboard and manage your account.
-        </p>
+      <div class="button-group">
+        <button type="submit">Continue</button>
+        <button type="button" class="signup-btn" onclick="window.location.href='/user/signup'">Sign Up</button>
       </div>
-    <% } else if (typeof loginAttempted !== 'undefined' && loginAttempted && !loginSuccess) { %>
-      <div class="message-box error">
-        <p><%= loginMessage %></p>
-      </div>
-    <% } %>
-  </form>
+    
+      <% if (typeof loginAttempted !== 'undefined' && loginAttempted && loginSuccess) { %>
+        <div class="message-box success">
+          Successfully logged in
+        </div>
+      <% } else if (typeof loginAttempted !== 'undefined' && loginAttempted && !loginSuccess) { %>
+        <div class="message-box error">
+          <%= loginMessage %>
+        </div>
+      <% } %>
+    </form>
+    
+  </div>
 </body>
 </html>
