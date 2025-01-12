@@ -25,27 +25,27 @@
       border: 1px solid #e5e5e5;
     }
 
-.app-title {
-  color: #000000;
-  font-size: 2rem;
-  margin-bottom: 2rem;
-  text-align: center;
-  font-weight: 600;
-  background: linear-gradient(45deg, #000000, #000000, #000000, #000000);
-  background-size: 300% 300%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: gradient 5s ease infinite;
-  transition: all 0.3s ease;
-}
+    .app-title {
+      color: #000000;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      font-weight: 600;
+      background: linear-gradient(45deg, #000000, #000000, #000000, #000000);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: gradient 5s ease infinite;
+      transition: all 0.3s ease;
+    }
 
-.app-title:hover {
-  background-size: 400% 400%;
-  filter: brightness(1.2);
-  transform: scale(1.05);
-  color: #4169e1; /* Royal Blue */
-}
+    .app-title:hover {
+      background-size: 400% 400%;
+      filter: brightness(1.2);
+      transform: scale(1.05);
+      color: #4169e1; /* Royal Blue */
+    }
 
     h1 {
       color: #202123;
@@ -59,34 +59,6 @@
       display: flex;
       flex-direction: column;
       gap: 1rem;
-    }
-
-    label {
-      font-weight: 500;
-      color: #202123;
-      font-size: 0.9rem;
-    }
-
-    input {
-      width: 100%;
-      padding: 0.75rem;
-      border: 1px solid #e5e5e5;
-      border-radius: 4px;
-      font-size: 0.9rem;
-      background-color: #ffffff;
-      color: #202123;
-      box-sizing: border-box;
-      transition: all 0.2s ease;
-    }
-
-    input:focus {
-      outline: none;
-      border-color: #2563eb;
-      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
-    }
-
-    input::placeholder {
-      color: #6e6e80;
     }
 
     .button-group {
@@ -124,6 +96,40 @@
     .login-btn:hover {
       background-color: rgba(37, 99, 235, 0.1);
     }
+
+    .form-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #2563eb;
+      border-radius: 4px;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    .floating-label {
+      position: absolute;
+      pointer-events: none;
+      left: 12px;
+      top: 12px;
+      transition: 0.2s ease all;
+      color: #718096;
+      font-size: 16px;
+      background: white;
+      padding: 0 4px;
+    }
+
+    .form-control:focus ~ .floating-label,
+    .form-control:not(:placeholder-shown) ~ .floating-label {
+      top: -9px;
+      font-size: 14px;
+      color: #2563eb;
+    }
   </style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -134,15 +140,18 @@
   <div class="container">
     <h1>Create your account</h1>
     <form action="/user/signup" method="post">
-      <label for="name">Full name</label>
-      <input type="text" id="name" name="name" required placeholder="John Doe">
-      
-      <label for="email">Email address</label>
-      <input type="email" id="email" name="email" required placeholder="name@example.com">
-      
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" required placeholder="••••••••">
-
+      <div class="form-group">
+        <input type="text" id="name" name="name" class="form-control" placeholder=" " required>
+        <label for="name" class="floating-label">Full name*</label>
+      </div>
+      <div class="form-group">
+        <input type="email" id="email" name="email" class="form-control" placeholder=" " required>
+        <label for="email" class="floating-label">Email address*</label>
+      </div>
+      <div class="form-group">
+        <input type="password" id="password" name="password" class="form-control" placeholder=" " required>
+        <label for="password" class="floating-label">Password*</label>
+      </div>
       <div class="button-group">
         <button type="submit">Continue</button>
         <button type="button" class="login-btn" onclick="window.location.href='/user/login'">Log in</button>
