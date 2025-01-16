@@ -1,162 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background-color: #ffffff;
-      margin: 0;
-      padding: 2rem;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: #202123;
-    }
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #202123;
+        }
 
-    .container {
-      width: 100%;
-      max-width: 400px;
-      background: #ffffff;
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      border: 1px solid #e5e5e5;
-    }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e5e5;
+        }
 
-    .app-title {
-      color: #000000;
-      font-size: 2rem;
-      margin-bottom: 2rem;
-      text-align: center;
-      font-weight: 600;
-      background: linear-gradient(45deg, #000000, #000000, #000000, #000000);
-      background-size: 300% 300%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: gradient 5s ease infinite;
-      transition: all 0.3s ease;
-    }
+        .app-title {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+            background: linear-gradient(
+                90deg,
+                #af8d24 0%,    /* Gold */
+                #f4dc85 15%,   /* Light gold */
+                #4169E1 30%,   /* Royal Blue */
+                #00BFFF 45%,   /* Deep Sky Blue */
+                #af8d24 50%,   /* Gold */
+                #f4dc85 65%,   /* Light gold */
+                #4169E1 80%,   /* Royal Blue */
+                #00BFFF 95%,   /* Deep Sky Blue */
+                #af8d24 100%   /* Gold */
+            );
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shine 4s linear infinite;
+            position: relative;
+            cursor: pointer;
+            letter-spacing: 1px;
+        }
 
-    .app-title:hover {
-      background-size: 400% 400%;
-      filter: brightness(1.2);
-      transform: scale(1.05);
-      color: #4169e1; /* Royal Blue */
-    }
+        .app-title::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(
+                45deg,
+                #af8d24 0%,    /* Gold */
+                #4169E1 25%,   /* Royal Blue */
+                #f4dc85 50%,   /* Light gold */
+                #00BFFF 75%,   /* Deep Sky Blue */
+                #af8d24 100%   /* Gold */
+            );
+            background-size: 200% 200%;
+            z-index: -1;
+            filter: blur(12px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: backgroundShine 4s linear infinite;
+        }
 
-    h1 {
-      color: #202123;
-      font-size: 1.5rem;
-      margin-bottom: 1.5rem;
-      text-align: center;
-      font-weight: 500;
-    }
+        .app-title:hover {
+            animation: shine 2s linear infinite;
+            transform: scale(1.05) translateY(-2px);
+            transition: all 0.3s ease;
+        }
 
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
+        .app-title:hover::before {
+            opacity: 0.6;
+        }
 
-    .button-group {
-      display: flex;
-      gap: 1rem;
-      margin-top: 1.5rem;
-    }
+        .app-title::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(
+                90deg,
+                #af8d24,    /* Gold */
+                #4169E1,    /* Royal Blue */
+                #f4dc85,    /* Light gold */
+                #00BFFF     /* Deep Sky Blue */
+            );
+            transition: width 0.5s ease;
+        }
 
-    button {
-      flex: 1;
-      padding: 0.75rem;
-      border: none;
-      border-radius: 4px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
+        .app-title:hover::after {
+            width: 100%;
+        }
 
-    button[type="submit"] {
-      background-color: #2563eb;
-      color: white;
-    }
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
 
-    button[type="submit"]:hover {
-      background-color: #1d4ed8;
-    }
+        @keyframes backgroundShine {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 200% 50%;
+            }
+        }
 
-    .login-btn {
-      background-color: #ffffff;
-      color: #2563eb;
-      border: 1px solid #2563eb;
-    }
+        h1 {
+            color: #202123;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 500;
+        }
 
-    .login-btn:hover {
-      background-color: rgba(37, 99, 235, 0.1);
-    }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
 
-    .form-group {
-      position: relative;
-      margin-bottom: 20px;
-    }
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
 
-    .form-control {
-      width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      border: 1px solid #2563eb;
-      border-radius: 4px;
-      outline: none;
-      box-sizing: border-box;
-    }
+        button {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
 
-    .floating-label {
-      position: absolute;
-      pointer-events: none;
-      left: 12px;
-      top: 12px;
-      transition: 0.2s ease all;
-      color: #718096;
-      font-size: 16px;
-      background: white;
-      padding: 0 4px;
-    }
+        button[type="submit"] {
+            background-color: #2563eb;
+            color: white;
+        }
 
-    .form-control:focus ~ .floating-label,
-    .form-control:not(:placeholder-shown) ~ .floating-label {
-      top: -9px;
-      font-size: 14px;
-      color: #2563eb;
-    }
-  </style>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign Up - TrimURL</title>
+        button[type="submit"]:hover {
+            background-color: #1d4ed8;
+        }
+
+        .login-btn {
+            background-color: #ffffff;
+            color: #2563eb;
+            border: 1px solid #2563eb;
+        }
+
+        .login-btn:hover {
+            background-color: rgba(37, 99, 235, 0.1);
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #2563eb;
+            border-radius: 4px;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .floating-label {
+            position: absolute;
+            pointer-events: none;
+            left: 12px;
+            top: 12px;
+            transition: 0.2s ease all;
+            color: #718096;
+            font-size: 16px;
+            background: white;
+            padding: 0 4px;
+        }
+
+        .form-control:focus ~ .floating-label,
+        .form-control:not(:placeholder-shown) ~ .floating-label {
+            top: -9px;
+            font-size: 14px;
+            color: #2563eb;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - TrimURL</title>
 </head>
 <body>
-  <h2 class="app-title">TrimURL</h2>
-  <div class="container">
-    <h1>Create your account</h1>
-    <form action="/user/signup" method="post">
-      <div class="form-group">
-        <input type="text" id="name" name="name" class="form-control" placeholder=" " required>
-        <label for="name" class="floating-label">Full name*</label>
-      </div>
-      <div class="form-group">
-        <input type="email" id="email" name="email" class="form-control" placeholder=" " required>
-        <label for="email" class="floating-label">Email address*</label>
-      </div>
-      <div class="form-group">
-        <input type="password" id="password" name="password" class="form-control" placeholder=" " required>
-        <label for="password" class="floating-label">Password*</label>
-      </div>
-      <div class="button-group">
-        <button type="submit">Continue</button>
-        <button type="button" class="login-btn" onclick="window.location.href='/user/login'">Log in</button>
-      </div>
-    </form>
-  </div>
+    <h2 class="app-title">TrimURL</h2>
+    <div class="container">
+        <h1>Create your account</h1>
+        <form action="/user/signup" method="post">
+            <div class="form-group">
+                <input type="text" id="name" name="name" class="form-control" placeholder=" " required>
+                <label for="name" class="floating-label">Full name*</label>
+            </div>
+            <div class="form-group">
+                <input type="email" id="email" name="email" class="form-control" placeholder=" " required>
+                <label for="email" class="floating-label">Email address*</label>
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" name="password" class="form-control" placeholder=" " required>
+                <label for="password" class="floating-label">Password*</label>
+            </div>
+            <div class="button-group">
+                <button type="submit">Continue</button>
+                <button type="button" class="login-btn" onclick="window.location.href='/user/login'">Log in</button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
